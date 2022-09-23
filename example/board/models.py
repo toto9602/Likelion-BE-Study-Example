@@ -8,6 +8,9 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 class Major(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 # User를 생성할 때 사용하는 헬퍼 클래스인 BaseUserManager를 상속합니다.
 # User를 생성할 때의 행위를 지정합니다. 
 class UserManager(BaseUserManager):
@@ -42,6 +45,7 @@ class UserManager(BaseUserManager):
         # superuser 생성이기 때문에 is_admin 속성과 is_superuser 속성을 True로 하여 저장합니다.
         user.is_admin = True
         user.is_superuser = True
+        user.is_staff = True
             
         user.save(using=self.db)
         return user
@@ -61,12 +65,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'account'
 
+    def __str__(self):
+        return self.account
+
 
 # 게시글 카테고리
 # 요구사항 3. "카테고리 이름" 혹은 "카테고리 코드"로 게시글 조회 가능
 class Category(models.Model):
     name = models.CharField(max_length=30)
     code = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name + self.code
 
 # 게시글
 # 제목과 내용을 갖습니다.
@@ -78,6 +88,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     like_users = models.ManyToManyField(User, related_name="liked_posts")
 
+    def __str__(self):
+        return self.title
+
 
 # 게시글의 댓글
 # 내용을 갖습니다
@@ -85,5 +98,8 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     content = models.TextField()
+
+    def __str__(self):
+        return self.content
 
 
