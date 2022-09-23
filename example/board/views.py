@@ -10,6 +10,7 @@ class PostListAPIView(APIView):
     # HTTP Method : GET
     def get(self, request):
         posts = Post.objects.all()
+        
 
 
 
