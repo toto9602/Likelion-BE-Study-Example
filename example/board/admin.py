@@ -2,6 +2,8 @@ from django.contrib import admin
 
 from .models import *
 
+# admin.register decorator 사용 
+# 목록에 표시할 필드를 정의하는 list_display만 사용했습니다.
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('account', 'is_staff')
