@@ -15,6 +15,7 @@ class MajorSerializer(sz.ModelSerializer):
 
 
 class UserSerializer(sz.ModelSerializer):
+    # Nested Serializer 참고
     majors = MajorSerializer(read_only=True, many=True)
     class Meta:
         model = User
@@ -38,12 +39,14 @@ class PostSerializer(sz.ModelSerializer):
         
         return response
 
+    # serializerMethodField 반환값을 정의하는 함수를 작성합니다.
     def get_likes_count(self, obj):
         liked_users = obj.like_users.all()
         likes_count = liked_users.count()
 
         return likes_count
-    
+
+    # serializerMethodField 반환값을 정의하는 함수를 작성합니다.
     def get_is_liked(self, obj):
         user = self.context['request'].user
 

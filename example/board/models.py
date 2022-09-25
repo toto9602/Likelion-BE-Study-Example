@@ -85,6 +85,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    # related_name 작성을 통해 관계간 충돌을 방지합니다.
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     like_users = models.ManyToManyField(User, related_name="liked_posts", blank=True)
 

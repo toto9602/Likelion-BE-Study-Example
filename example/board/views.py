@@ -60,14 +60,12 @@ class PostListAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
-
-
-
-
-        
-
-
-
-
+class ToggleLikeAPIView(APIView):
+    # def get(self, request, post_pk):
+        # post_pk로 Post 객체를 가져옵니다.
+        # Post 객체의 like_users를 조회합니다.
+        # request.user(요청을 보낸 사용자)가 like_users에 있다면 해당 사용자를 like_users에서 remove합니다 (좋아요 해제)
+        # request.user(요청을 보낸 사용자)가 like_users에 없다면 해당 사용자를 like_users에 add합니다 (좋아요 등록)
+        # 실행 결과에 따른 Response 객체 및 statusCode를 반환합니다. 
+        # 200_OK, 401_UNAUTHORIZED 등
+    pass
